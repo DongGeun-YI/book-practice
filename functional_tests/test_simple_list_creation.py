@@ -4,39 +4,10 @@ __author__ = 'Macbookair'
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-import unittest
+from .base import FunctionalTest
 
 
-
-class NewVisitorTest(StaticLiveServerTestCase): #unitest.TestCase를 상속해서 테스트를 클래스 형태로 만듬.
-
-    @classmethod
-    def setUpClass(cls):
-        for arg in sys.argv:
-            if 'liveserver' in arg:
-                cls.server_url = 'http://' + arg.split('=')[1]
-                return
-        super().setUpClass()
-        cls.server_url = cls.live_server_url
-
-    @classmethod
-    def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
-            super().tearDownClass()
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
+class NewVisitorTest(FunctionalTest): #unitest.TestCase를 상속해서 테스트를 클래스 형태로 만듬.
 
     def test_can_start_a_list_and_retrieve_it_later(self):
 
@@ -100,6 +71,8 @@ class NewVisitorTest(StaticLiveServerTestCase): #unitest.TestCase를 상속해�
         self.assertNotIn('공작깃털 사기', page_text)
         self.assertIn('우유사기', page_text)
 
+class LayoutAndStylingTest(FunctionalTest):
+
     def test_layout_and_styling(self):
 
         #에디스는 메인 페이지를 방문한다. 입력창이 가운데 배치 되어있는 것도 확인한다.
@@ -112,3 +85,18 @@ class NewVisitorTest(StaticLiveServerTestCase): #unitest.TestCase를 상속해�
             inputbox.location['x'] + inputbox.size['width']/2,
             512,
             delta=10)
+
+class ItemValidationTest(FunctionalTest):
+
+    def test_cannot_add_empty_list_items(self):
+        #에디스는 메인 페이지에 접속해서, 빈 아이템을 실수로 등록하려고 한다.
+        #입력 상자가 비어잇는 상태에서 엔터키를 누른다.
+
+        # 페이지가 새로고침되고, 빈 아이템을 등록할 수 없다는 에러메시지가 표시된다.
+        # 다른 아이템을 입력하고 이번에는 정상처리된다.
+
+        # 그녀는 고의적으로 다시 빈 아이템을 등록한다.
+        # 다시 빈 아이템을 등록할 수 없다는 에러메시지가 표시된다.
+
+        # 아이템을 입력하면 정상동작한다.
+        self.fail('write me!')
