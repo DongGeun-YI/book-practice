@@ -40,6 +40,10 @@ class ListAndItemModelsList(TestCase):
             item.full_clean() #SQLite의 부족함으로 인해서, 유효성검증을 수동으로 해주어야함.
 
 
+    def test_get_absoloute_url(self):
+        list_ = List.objects.create()
+        self.assertEqual(list_.get_absoloute_url(), '/lists/%d/' % (list_.id))
+
 #with 구문을 try: item.save() \n self.fail('save 기능이 예외를 발생기켜야한다') \except ValidationError: \n pass;
 
 
