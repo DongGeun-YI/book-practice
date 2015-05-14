@@ -10,9 +10,15 @@
     <div class = "container">
 
         <div class = "row">
-            <div class = "col-md-6 col-md-offset-3 jumbotron">
+            <div class = "col-md-7 col-md-offset-3 jumbotron">
+             <nav class="navbar navbar-default" role="navigation">
+                 <div><ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/join">회원가입</a></li> </ul></div>
                 <div class = "text-center">
-                    <h1>{% block header_text %}{% endblock %}</h1>
+
+                    <h1>{% block header_text %}{% endblock %} </h1>
+
                     <form method = "POST" action = "{% block form_action %}{% endblock %}">
                         <input name = "item_text" id = "id_new_item" class = "form-control input-lg" placeholder="작업 아이템 입력" />
                         {% csrf_token %}
@@ -23,8 +29,17 @@
                     {% endif %}
                     </form>
                 </div>
+              </nav>
+            </div>
             </div>
         </div>
+<!--
+    <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">로그인</a></li>
+          <li><a href="#">회원가입</a></li>
+          <li></li>
+-->
+      </ul>
 
     <div class = "row">
         <div class = "col-md-6 col-md-offset-3">

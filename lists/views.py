@@ -39,6 +39,17 @@ def new_list(request):
         list_.delete()
         error = "You can't have an empty item"
         return render(request, 'home.html', {"error": error})
-    return redirect(list_)  #('/lists/%d/' % (list_.id,))
+    return redirect('view_list', list_.id)  #('/lists/%d/' % (list_.id,))
 
+def login(request):
 
+    return render(request, 'login.html')
+    # request.session['list_login_sess'] = 'dongguen'
+    #return HttpResponse('[%s] logged in successfully' % request.session['list_login_sess'])
+
+def logout(request):
+    #del request.session['list_login_sees']
+    return render(request, 'logout.html')
+
+def join(request):
+    return render(request, 'join.html')
